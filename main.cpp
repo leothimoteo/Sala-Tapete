@@ -38,7 +38,7 @@ int main() {
     std :: cout << "P4= " << PontosRetSE(sala) << std :: endl;
     
 //Testando se um ponto qualquer pertence à sala
-    Ponto2D p5(5,-2);
+    Ponto2D p5(2,-2);
     
     if (Intercep (p5, sala)) {
         std :: cout << "está inserido\n\n\n";
@@ -69,17 +69,17 @@ int soma (const Retangulo&_ret){
                 4*(Intercep(PontosRetNE(_ret), sala)) + 8*(Intercep (PontosRetSE(_ret), sala)));
  
         
-        if ((sala.PTR().Y() < _ret.PTR().Y() && _ret.PTR().Y() < PontosRetNO(sala).Y()) && //tapete transversal horizontal
+        if ((sala.PTR().Y() < _ret.PTR().Y() && _ret.PTR().Y() < PontosRetNO(sala).Y()) &&   //tapete transversal horizontal
                 (sala.PTR().X() > _ret.PTR().X() && PontosRetSE(_ret).X() > PontosRetSE(sala).X())) {
             
             return soma=17;
         }
         
     
-        if ((sala.PTR().Y() > _ret.PTR().Y() && _ret.PTR().Y() > PontosRetNO(sala).Y()) && //tapete transversal vertical
-                (sala.PTR().X() < _ret.PTR().X() && PontosRetSE(_ret).X() < PontosRetSE(sala).X())) {
+        if ((sala.PTR().X() < _ret.PTR().X() && _ret.PTR().X() < PontosRetSE(sala).X()) &&    //tapete transversal vertical
+                (sala.PTR().Y() > _ret.PTR().Y() && PontosRetNO(_ret).Y() > PontosRetNO(sala).Y())) {
             
-            return soma=17;
+            return soma=18;
         }
         
         
