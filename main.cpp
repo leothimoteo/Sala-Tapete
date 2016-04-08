@@ -38,14 +38,14 @@ int main() {
     std :: cout << "P4= " << PontosRetSE(sala) << std :: endl;
     
 //Testando se um ponto qualquer pertence à sala
-    Ponto2D p5(2,-2);
+    Ponto2D p5(50,50);
     
     if (Intercep (p5, sala)) {
         std :: cout << "está inserido\n\n\n";
     }
     else std :: cout << "asjndsn\n\n\n";
     
-    Retangulo tapete (2,20,p5);    
+    Retangulo tapete (20,20,p5);    
     
     std:: cout << "Soma:" << soma(tapete); 
     
@@ -63,8 +63,10 @@ int main() {
 // declaração de funções
 //********************************************************
 
-int soma (const Retangulo&_ret){
+int soma (const Retangulo&_ret) {
+    
     int soma;
+
     soma= (1*Intercep(_ret.PTR(), sala) + 2*(Intercep(PontosRetNO(_ret), sala)) + 
                 4*(Intercep(PontosRetNE(_ret), sala)) + 8*(Intercep (PontosRetSE(_ret), sala)));
  
@@ -72,17 +74,25 @@ int soma (const Retangulo&_ret){
         if ((sala.PTR().Y() < _ret.PTR().Y() && _ret.PTR().Y() < PontosRetNO(sala).Y()) &&   //tapete transversal horizontal
                 (sala.PTR().X() > _ret.PTR().X() && PontosRetSE(_ret).X() > PontosRetSE(sala).X())) {
             
-            return soma=17;
+            soma=17;
         }
         
     
-        if ((sala.PTR().X() < _ret.PTR().X() && _ret.PTR().X() < PontosRetSE(sala).X()) &&    //tapete transversal vertical
+        else if ((sala.PTR().X() < _ret.PTR().X() && _ret.PTR().X() < PontosRetSE(sala).X()) &&    //tapete transversal vertical
                 (sala.PTR().Y() > _ret.PTR().Y() && PontosRetNO(_ret).Y() > PontosRetNO(sala).Y())) {
             
-            return soma=18;
+            soma=18;
         }
-        
-        
-        else return soma;
-    }   
+    
+        else if ((1*Intercep(sala.PTR(), _ret) + 2*(Intercep(PontosRetNO(sala), _ret)) +  //tapete maior que sala
+                      4*(Intercep(PontosRetNE(sala), _ret)) + 8*(Intercep (PontosRetSE(sala), _ret))) == 15){
+            
+            soma=16;
+        }
+    
+        else  soma=19;  //tapete e sala externos
+    
+    
+        return soma; 
+}   
 //    A soma diz respeito AO TAPETE, não à sala
