@@ -15,12 +15,13 @@
 #include <Ponto2D.h>
 
 
-class Retangulo {
+class Retangulo : protected Ponto2D {
     
 //==============================================================================
 //                            funções friend
 //============================================================================== 
     friend std :: ostream& operator << (std :: ostream&, const Retangulo&);
+    friend std :: istream& operator >> (std :: istream&,  Retangulo&);   
     
 //Encontrar demais pontos do retângulo 
     friend const Ponto2D PontosRetNO (const Retangulo&);   //ponto noroeste

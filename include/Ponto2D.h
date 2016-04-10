@@ -22,6 +22,7 @@ public:
 //==============================================================================
     
     friend std :: ostream& operator << (std :: ostream&, const Ponto2D&);
+    friend std :: istream& operator >> (std :: istream&,  Ponto2D&);  
     
 //==============================================================================
 //                       CONSTRUTORES E DESTRUTORA
@@ -46,7 +47,7 @@ public:
     inline  const Real X() const {return x;}; //exibir apenas abscissa
     inline  const Real Y() const {return y;}; //exibir apenas ordenada
  
-private:
+protected:
 
     Real x, y;    //parâmetros que definem ponto 2D
 };

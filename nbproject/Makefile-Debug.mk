@@ -67,17 +67,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sala_tapete.exe: ${OBJECTFILES}
 ${OBJECTDIR}/lib/Ponto2D.o: lib/Ponto2D.cpp 
 	${MKDIR} -p ${OBJECTDIR}/lib
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lib/Ponto2D.o lib/Ponto2D.cpp
+	$(COMPILE.cc) -g -Iinclude -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lib/Ponto2D.o lib/Ponto2D.cpp
 
 ${OBJECTDIR}/lib/Retangulo.o: lib/Retangulo.cpp 
 	${MKDIR} -p ${OBJECTDIR}/lib
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lib/Retangulo.o lib/Retangulo.cpp
+	$(COMPILE.cc) -g -Iinclude -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lib/Retangulo.o lib/Retangulo.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Iinclude -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

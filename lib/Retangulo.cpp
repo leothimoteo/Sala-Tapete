@@ -22,6 +22,11 @@ const Retangulo& Retangulo:: operator= (const Retangulo& _ret) {
     return *this;
 }
 
+ std :: istream &operator >> (std :: istream&_os,  Retangulo &_ret){
+	_os >> _ret.base >> _ret.altura >> _ret.ptr;
+	return _os;
+}
+
 //==============================================================================
 //               função que calcula demais pontos do retângulo
 //==============================================================================

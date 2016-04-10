@@ -13,6 +13,10 @@ std :: ostream& operator << (std :: ostream& _os, const Ponto2D& _ponto){
         }
         return *this;
     }
-
+    
+std :: istream& operator >> (std :: istream& _os,  Ponto2D& _pt){
+    	_os >> _pt.x >> _pt.y;
+	return _os;
+}
 
 

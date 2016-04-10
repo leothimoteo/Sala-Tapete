@@ -9,6 +9,10 @@
 #include <cstdlib>
 #include <Ponto2D.h>
 #include <Retangulo.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <list>
 
 
 //********************************************************
@@ -21,24 +25,101 @@ Retangulo corte (const Retangulo, const Retangulo, const int);
 Real area (const Retangulo &);
 
 //********************************************************
+//typedef
+//********************************************************
+    typedef std :: list <Retangulo>                LstRet;
+    typedef LstRet :: iterator                     ItLstRet;
+    
+
+
+//********************************************************
 // MAIN FUNCTION
 //********************************************************
 int main() {
     
-//********************************************************
-// variáveis locais
-//********************************************************
-Retangulo sala (10,10);
-//int _soma;
-//Retangulo _corte;
+
+// ************* variáveis locais ************************
+Retangulo sala (10,10), R1;
+int i(1);
+int _soma;
+Retangulo _corte;
+Real adesct; 
+
 
 //Encontrando demais pontos da sala 
     std :: cout << "Pontos da sala:       "    << std :: endl;
     std :: cout << "P1= " << sala.PTR ()       << std :: endl;
     std :: cout << "P2= " << PontosRetNO(sala) << std :: endl;
     std :: cout << "P3= " << PontosRetNE(sala) << std :: endl;
-    std :: cout << "P4= " << PontosRetSE(sala) << std :: endl;
+    std :: cout << "P4= " << PontosRetSE(sala) << "\n"<< std :: endl;
     
+// ************* declarando lista e iterator *****************
+    LstRet    lista, lista_corte;
+    ItLstRet  it_lista, it_lista2 (lista.begin ());  
+    
+    
+//************** importando arquivo externo***************
+    
+    std :: ifstream input("tapetes_previos.txt"); //PRECISA EXISTIR
+        
+//___________________TESTE EXISTÊNCIA ____________________
+    
+    if (!input){
+        std :: cerr << "Arquivo inexistente" << std :: endl;
+        abort ();
+    }
+
+//************** exportando para arquivo externo***************
+//    std :: ofstream output ("tapetes_cortados.txt");
+
+//___________________importando dados e____________________    
+//____escrevendo tapetes cortados em arquivo externo______
+    
+    while (!input.eof()){
+         input >> R1;
+         std :: cout << "Tapete "<<i<<": "<< R1 << std :: endl;
+         _soma = soma (R1, sala);
+         std :: cout << "Soma: " << _soma << std :: endl;
+         _corte = corte (R1, sala, _soma);
+         std :: cout << "Retângulo cortado: " << _corte << "\n" <<std :: endl; 
+//         output << _corte.Base () << " " << _corte.Altura () << " " << _corte.PTR().X() << " " <<_corte.PTR().Y() << "\n";
+         lista.push_front(_corte);
+         i++;
+    }
+    
+    input.close ();
+    //    output.close();
+    
+  //____________apagando elemento repetido__________________________
+   ItLstRet it_fim(lista.begin());
+   advance (it_fim,1);
+   lista.erase (lista.begin (), it_fim);
+   
+  //_______________imprimindo lista__________________________________    
+    for (it_lista =lista.begin(); it_lista !=lista.end(); it_lista++){
+        std :: cout << *it_lista <<std::endl;
+    }
+    
+//______________cortando tapetes interceptados________________________
+   
+   for (it_lista =lista.begin(); it_lista !=lista.end(); ++it_lista){
+       for (it_lista2= lista.begin(); it_lista2 !=lista.end(); ++it_lista2){ 
+           if (it_lista == it_lista2){
+               advance (it_lista2,1);
+           }
+           
+            _soma = soma (*it_lista, *it_lista2);
+            _corte= corte (*it_lista, *it_lista2, _soma);
+            lista_corte.push_back(_corte);           //salvando interseções
+        
+        }
+   
+   }
+    
+
+
+    
+
 //_______________ Testando se um ponto qualquer pertence à sala_________________
 //    Ponto2D p5(-2,6);
 //    
