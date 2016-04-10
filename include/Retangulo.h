@@ -46,7 +46,11 @@ public:
             ptr (_orig.ptr) {};
     
     Retangulo (const Real _base, const Real _altura) : base(_base),             // construtora específica
+  
             altura (_altura), ptr() {};
+            
+    Retangulo (const Real _base, const Real _altura, const Real _x, const Real _y) :
+    base(_base), altura (_altura), ptr (_x, _y) {};
             
     virtual ~Retangulo() {};                                                     // destrutora
     
