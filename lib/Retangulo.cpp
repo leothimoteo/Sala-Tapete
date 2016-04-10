@@ -1,8 +1,15 @@
-
+//==============================================================================
+//                           C++ INCLUDES
+//==============================================================================
 #include <Retangulo.h>
 #include <Ponto2D.h>
 #include <iostream>
 #include <math.h>
+
+
+//==============================================================================
+//                           operador <<
+//==============================================================================
 
 std :: ostream& operator << (std :: ostream& _os, const Retangulo& _ret){
     _os << "Base: " << _ret.base << 
@@ -11,6 +18,10 @@ std :: ostream& operator << (std :: ostream& _os, const Retangulo& _ret){
     return _os; 
     
 }
+
+//==============================================================================
+//                           operador =
+//==============================================================================
 
 const Retangulo& Retangulo:: operator= (const Retangulo& _ret) {
     if (this != &_ret){
@@ -22,10 +33,18 @@ const Retangulo& Retangulo:: operator= (const Retangulo& _ret) {
     return *this;
 }
 
+//==============================================================================
+//                           operador ==
+//==============================================================================
 const bool Retangulo :: operator== (const Retangulo &_ret) const 
 {
     return base==_ret.base && altura== _ret.altura && ptr == _ret.ptr; 
+    
 }
+
+//==============================================================================
+//                           operador >>
+//==============================================================================
 
  std :: istream &operator >> (std :: istream&_os,  Retangulo &_ret){
 	_os >> _ret.base >> _ret.altura >> _ret.ptr;
@@ -51,10 +70,10 @@ const bool Retangulo :: operator== (const Retangulo &_ret) const
 //==============================================================================
 //                           função de interseção
 //==============================================================================
-       const bool Intercep (const Ponto2D& _pt, const Retangulo& _ret) {
+const bool Intercep (const Ponto2D& _pt, const Retangulo& _ret) {
                     
            //ponto qualquer do tapete e um ponto da sala
            return ((_ret.PTR().X() < _pt.X() && _pt.X() < (PontosRetSE(_ret)).X())&&
                    (_ret.PTR().Y() < _pt.Y() && _pt.Y() < (PontosRetNO(_ret)).Y()));
                
-        }
+}

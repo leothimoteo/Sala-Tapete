@@ -47,8 +47,12 @@ public:
     
     inline  const Real X() const {return x;}; //exibir apenas abscissa
     inline  const Real Y() const {return y;}; //exibir apenas ordenada
+    
+//==============================================================================
+//                          VARIÁVEIS PRIVADAS
+//==============================================================================
  
-protected:
+private:
 
     Real x, y;    //parâmetros que definem ponto 2D
 };
