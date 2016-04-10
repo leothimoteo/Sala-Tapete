@@ -22,6 +22,11 @@ const Retangulo& Retangulo:: operator= (const Retangulo& _ret) {
     return *this;
 }
 
+const bool Retangulo :: operator== (const Retangulo &_ret) const 
+{
+    return base==_ret.base && altura== _ret.altura && ptr == _ret.ptr; 
+}
+
  std :: istream &operator >> (std :: istream&_os,  Retangulo &_ret){
 	_os >> _ret.base >> _ret.altura >> _ret.ptr;
 	return _os;

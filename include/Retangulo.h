@@ -60,6 +60,8 @@ public:
 //============================================================================== 
     
     const Retangulo& operator= (const Retangulo&);
+    const bool operator== (const Retangulo &) const;
+
     
 //==============================================================================
 //                            FUNÇÕES INLINE

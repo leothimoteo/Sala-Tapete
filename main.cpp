@@ -1,6 +1,6 @@
 //Criar um programa que inclua retângulos em um retângulo maior
 //Alunos: Cairo Martins e Leonardo Thimoteo, 07.02.2016
-//Status: incompleto
+//Status: Completo
 
 
 //********************************************************
@@ -40,10 +40,10 @@ int main() {
 
 // ************* variáveis locais ************************
 Retangulo sala (10,10), R1;
-int i(1);
 int _soma;
+int i(1);
 Retangulo _corte;
-Real adesct; 
+Real _area(0), adsct;               // adsct armazena área comum entre dois tapetes
 
 
 //Encontrando demais pontos da sala 
@@ -55,7 +55,7 @@ Real adesct;
     
 // ************* declarando lista e iterator *****************
     LstRet    lista, lista_corte;
-    ItLstRet  it_lista, it_lista2 (lista.begin ());  
+    ItLstRet  it_lista (lista.begin());  
     
     
 //************** importando arquivo externo***************
@@ -95,28 +95,60 @@ Real adesct;
    advance (it_fim,1);
    lista.erase (lista.begin (), it_fim);
    
-  //_______________imprimindo lista__________________________________    
-    for (it_lista =lista.begin(); it_lista !=lista.end(); it_lista++){
-        std :: cout << *it_lista <<std::endl;
-    }
-    
-//______________cortando tapetes interceptados________________________
+  
    
-   for (it_lista =lista.begin(); it_lista !=lista.end(); ++it_lista){
-       for (it_lista2= lista.begin(); it_lista2 !=lista.end(); ++it_lista2){ 
-           if (it_lista == it_lista2){
-               advance (it_lista2,1);
+   std :: cout << "\n";
+   
+//______________cortando tapetes interceptados________________________
+   int m=0;
+   Retangulo *x;
+   x=new Retangulo [lista.size()];   //cria vetor com dimensão da lista
+   
+   //_______________imprimindo lista__________________________________    
+    for (it_lista =lista.begin(); it_lista !=lista.end(); it_lista++){
+        std :: cout << "elemento: " << *it_lista << std::endl;
+        x[m]=*it_lista;
+        m++;
+    }
+   std :: cout << "\n";
+   
+   
+   for (int i=0; i< lista.size(); i++) {
+       for (int n=0; n<lista.size(); n++){
+           if (i<=n){
+               n++;
            }
            
-            _soma = soma (*it_lista, *it_lista2);
-            _corte= corte (*it_lista, *it_lista2, _soma);
-            lista_corte.push_back(_corte);           //salvando interseções
-        
-        }
+           else {
+           _soma= soma(x[n], x[i]);
+           std :: cout << "soma: " << _soma << std :: endl;
+           _corte=corte (x[n], x[i], _soma);
+           lista_corte.push_front(_corte);
+           
+       }
+     }
+   }  
    
+   std:: cout << "\n\nImprimindo lista de corte: " << std :: endl;
+    for (it_lista =lista_corte.begin(); it_lista !=lista_corte.end(); it_lista++){
+        std :: cout << *it_lista <<std::endl;
+    }   
+       
+   for (int i=0; i< lista.size(); i++){
+       _area+= area (x[i]);
    }
-    
-
+   
+    it_lista =lista_corte.begin();
+   
+      for (int i=0; i< lista.size(); i++){
+       adsct+= area (*it_lista);
+       it_lista++;
+   }
+   
+   std :: cout << "Área da sala: " << area (sala) << " m2" <<std :: endl;
+   std :: cout << "Área dos tapetes: " << _area << " m2" << std :: endl;
+   std :: cout << "Área útil dos tapetes: " << _area - adsct << " m2" << std :: endl;
+ 
 
     
 
