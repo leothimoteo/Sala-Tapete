@@ -15,7 +15,7 @@
 #include <Ponto2D.h>
 
 
-class Retangulo : protected Ponto2D {
+class Retangulo {
     
 //==============================================================================
 //                            funções friend
@@ -60,8 +60,6 @@ public:
 //============================================================================== 
     
     const Retangulo& operator= (const Retangulo&);
-    const bool operator== (const Retangulo &) const;
-
     
 //==============================================================================
 //                            FUNÇÕES INLINE
@@ -82,7 +80,6 @@ private:
     Real base, altura;
     Ponto2D ptr; //posição no espaço -> sudoeste
     
-
 };
 
 #endif /* RETANGULO_H */

@@ -18,6 +18,7 @@
 //******************************************************************************
 //                          protótipos de funções
 //******************************************************************************
+
 const int soma (const Retangulo&, const Retangulo&);
 
 Retangulo corte (const Retangulo, const Retangulo, const int); 
@@ -27,25 +28,26 @@ Real area (const Retangulo &);
 //******************************************************************************
 //                                typedef
 //******************************************************************************
+
     typedef std :: list <Retangulo>                LstRet;
     typedef LstRet :: iterator                     ItLstRet;
     
 
-
 //******************************************************************************
 //                             MAIN FUNCTION
 //******************************************************************************
+    
 int main() {
     
 // ************************* variáveis locais **********************************
-Retangulo sala (10,10), R1;
-int _soma;
-int i(1);
-Retangulo _corte;
+    
+Retangulo sala (10,10), R1, _corte;
+int _soma, i(1);
 Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
 
-
 //______________ Encontrando demais pontos da sala______________________________
+
+    std :: cout << "SALA: " << sala << "\n" <<std :: endl;
 
     std :: cout << "Pontos da sala:       "    << std :: endl;
     std :: cout << "P1= " << sala.PTR ()       << std :: endl;
@@ -53,12 +55,11 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
     std :: cout << "P3= " << PontosRetNE(sala) << std :: endl;
     std :: cout << "P4= " << PontosRetSE(sala) << "\n"<< std :: endl;
     
-    
 // ********************** declarando lista e iterator **************************
-    LstRet    lista, lista_corte;
-    ItLstRet  it_lista (lista.begin());  
     
-    
+    LstRet    lista_orig, lista, lista_corte;
+    ItLstRet  it_lista (lista.begin()), it_fim(lista.end()),
+              it_fim2(lista_orig.end());          
     
 //******************** importando arquivo externo*******************************
     
@@ -71,18 +72,21 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
         abort ();
     }
 
-//____________________________importando dados e________________________________    
+//__________________________importando dados e__________________________________    
 //_____________escrevendo tapetes cortados em uma lista_________________________
     
+     input >> R1;
     while (!input.eof()){
-         input >> R1;
-         std :: cout << "Tapete "<<i<<": "<< R1 << std :: endl;
+         
+         //std :: cout << "Tapete "<<i<<": "<< R1 << std :: endl;
          _soma = soma (R1, sala);
-         std :: cout << "Soma: " << _soma << std :: endl;
+         //std :: cout << "Soma: " << _soma << std :: endl;
          _corte = corte (R1, sala, _soma);
-         std :: cout << "Retângulo cortado: " << _corte << "\n" <<std :: endl; 
-         lista.push_front(_corte);
-         i++;
+         //std :: cout << "Retângulo cortado: " << _corte << "\n" <<std :: endl; 
+         lista_orig.push_back(R1);
+         lista.push_back(_corte);
+         input >> R1;
+         
     }
     
     input.close ();
@@ -93,11 +97,20 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
     
 //_______________________apagando elemento repetido_____________________________
     
-   ItLstRet it_fim(lista.begin());       //iterador
-   advance (it_fim,1);                   //aponta para o segundo endereço da lista
-   lista.erase (lista.begin (), it_fim); //apaga elemento repetido
+//   advance (it_fim,-1);              //aponta para o PENÚLTIMO elemento da lista
+//   advance (it_fim2,-1);
+//   
+//   lista.erase (it_fim, lista.end());
+//   lista.erase (it_fim2, lista_orig.end());
   
+//_____________________imprimindo tapetes do arquivo externo____________________
    
+   std :: cout << "TAPETES DO ARQUIVO EXTERNO" << std :: endl;
+   
+   for (it_lista = lista_orig.begin(); it_lista!= lista_orig.end(); it_lista++){
+       std:: cout << "Tapete [" << i <<"]: " << *it_lista <<std :: endl;
+       i++;
+   }
    std :: cout << "\n";
    
 //___________________cortando tapetes interceptados_____________________________
@@ -106,17 +119,22 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
    Retangulo *x;
    x=new Retangulo [lista.size()];   //cria vetor com dimensão da lista
    
-//_________________________imprimindo lista_____________________________________  
+//______________imprimindo corte de tapetes em relação à sala___________________
+   
+   std :: cout << "CORTE DOS TAPETES EM RELAÇÃO À SALA" << std :: endl;
    
     for (it_lista =lista.begin(); it_lista !=lista.end(); it_lista++){
-        std :: cout << "elemento: " << *it_lista << std::endl;
+        
+        std :: cout << "Corte tapete ["<< m+1 <<"] com a sala: " << *it_lista << std::endl;
         x[m]=*it_lista;
-        m++;
+        m++;        
     }
    
    std :: cout << "\n";
    
 //_______________enviando áreas de interseção para lista________________________
+   
+   std:: cout << "ELIMINANDO ÁREAS COMUNS DOS TAPETES" <<std :: endl;
    
    for (int i=0; i< lista.size(); i++) {
        for (int n=0; n<lista.size(); n++){
@@ -126,45 +144,37 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
            
            else {
            _soma= soma(x[n], x[i]);
+           std :: cout << "Tapete[" << i+1 <<"]" << " com tapete [" << n+1 << "]" << std:: endl;
            std :: cout << "Soma: " << _soma << std :: endl;
            _corte=corte (x[n], x[i], _soma);
+            std :: cout << "Retângulo Descartado: " << _corte << "\n" <<std :: endl;
            lista_corte.push_front(_corte);
            
             }
      }
    }  
    
-//_________________Imprimindo lista de retângulos eliminados____________________
-   
-   std:: cout << "\n\nImprimindo lista de corte: " << std :: endl;
-  
-    for (it_lista =lista_corte.begin(); it_lista !=lista_corte.end(); it_lista++){
-        std :: cout << *it_lista <<std::endl;
-    }   
-
 //__________________________Calculando áreas____________________________________
    
+   std :: cout << "CALCULANDO ÁREAS" << std :: endl;
+   
    //********************* área total dos tapetes ******************************
+   
    for (int i=0; i< lista.size(); i++){
        _area+= area (x[i]);
    }
    
    //********************* área útil dos tapetes *******************************
-    it_lista =lista_corte.begin();
-   
-      for (int i=0; i< lista.size(); i++){
+    
+      for (it_lista=lista_corte.begin(); it_lista!=lista_corte.end(); it_lista++){
        adsct+= area (*it_lista);
-       it_lista++;
-   }
+      }
     
  //________________________Exibindo resultados__________________________________
-   std :: cout << "\n";   
    std :: cout << "Área da sala: " << area (sala) << " m2" <<std :: endl;
    std :: cout << "Área dos tapetes: " << _area << " m2" << std :: endl;
    std :: cout << "Área útil dos tapetes: " << _area - adsct << " m2" << std :: endl;
  
-
-    
 
 //_______________ Testando se um ponto qualquer pertence à sala_________________
 //    Ponto2D p5(-2,6);
@@ -182,7 +192,7 @@ Real _area(0), adsct(0);    // adsct armazena área comum entre dois tapetes
 //    std :: cout << "área de interseção: " << _corte << std :: endl;
 //    
     
-    
+   delete [] x;     //deletando memória alocada pelo vetor
     return 0;
 }
 

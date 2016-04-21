@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Sala_tapete
+PROJECTNAME=sala-tapetes
 
 # Active Configuration
 DEFAULTCONF=Debug

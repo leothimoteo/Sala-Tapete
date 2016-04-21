@@ -34,15 +34,6 @@ const Retangulo& Retangulo:: operator= (const Retangulo& _ret) {
 }
 
 //==============================================================================
-//                           operador ==
-//==============================================================================
-const bool Retangulo :: operator== (const Retangulo &_ret) const 
-{
-    return base==_ret.base && altura== _ret.altura && ptr == _ret.ptr; 
-    
-}
-
-//==============================================================================
 //                           operador >>
 //==============================================================================
 
@@ -73,7 +64,7 @@ const bool Retangulo :: operator== (const Retangulo &_ret) const
 const bool Intercep (const Ponto2D& _pt, const Retangulo& _ret) {
                     
            //ponto qualquer do tapete e um ponto da sala
-           return ((_ret.PTR().X() < _pt.X() && _pt.X() < (PontosRetSE(_ret)).X())&&
-                   (_ret.PTR().Y() < _pt.Y() && _pt.Y() < (PontosRetNO(_ret)).Y()));
+           return ((_ret.PTR().X() <= _pt.X() && _pt.X() <= (PontosRetSE(_ret)).X())&&
+                   (_ret.PTR().Y() <= _pt.Y() && _pt.Y() <= (PontosRetNO(_ret)).Y()));
                
 }
